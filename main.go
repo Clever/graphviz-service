@@ -22,14 +22,45 @@ func main() {
 	http.ListenAndServe(":"+port, nil)
 }
 
+func response(w http.ResponseWriter, status int, body string) {
+	w.WriteHeader(status)
+	w.Write([]byte(body))
+}
+
 func dotHandler(w http.ResponseWriter, r *http.Request) {
-	dot := exec.Command("dot", "-Tpng")
+	if r.Method != "POST" {
+		response(w, 405, "Unknown method")
+		return
+	}
+
+	vals := r.URL.Query()["format"]
+
+	format := "png"
+	if len(vals) == 1 {
+		format = vals[0]
+	} else if len(vals) > 1 {
+		response(w, 400, "More than one format specified")
+		return
+	}
+
+	switch format {
+	case "svg":
+	case "png":
+	case "pdf":
+	case "plain":
+	default:
+		response(w, 400, "Unkonwn format type")
+		return
+	}
+
+	dot := exec.Command("dot", "-T"+format)
 	dot.Stdin = r.Body
 	dot.Stdout = w
 	dot.Stderr = os.Stderr
 
 	err := dot.Run()
 	if err != nil {
-		log.Fatal("ERROR: " + err.Error())
+		response(w, 500, err.Error())
+		return
 	}
 }
