@@ -5,7 +5,12 @@ import (
 	"net/http"
 	"os"
 	"os/exec"
+	"time"
+
+	"gopkg.in/Clever/kayvee-go.v2/logger"
 )
+
+var kvlog = logger.New("graphviz-service")
 
 func requiredEnv(key string) string {
 	value := os.Getenv(key)
@@ -22,14 +27,25 @@ func main() {
 	http.ListenAndServe(":"+port, nil)
 }
 
-func errResponse(w http.ResponseWriter, status int, body string) {
+func errResponse(w http.ResponseWriter, status int, body string, stats map[string]interface{}) {
 	w.WriteHeader(status)
 	w.Write([]byte(body))
+
+	kvlog.ErrorD(body, stats)
 }
 
 func dotHandler(w http.ResponseWriter, r *http.Request) {
+	start := time.Now()
+	stats := map[string]interface{}{
+		"method": r.Method,
+		"path":   r.URL.String(),
+		"remote": r.RemoteAddr,
+		"start":  start.Format(time.RFC3339),
+	}
+	kvlog.InfoD("request-started", stats)
+
 	if r.Method != "POST" {
-		errResponse(w, 405, "Unknown method")
+		errResponse(w, 405, "Unknown method", stats)
 		return
 	}
 
@@ -39,7 +55,7 @@ func dotHandler(w http.ResponseWriter, r *http.Request) {
 	if len(vals) == 1 {
 		format = vals[0]
 	} else if len(vals) > 1 {
-		errResponse(w, 400, "More than one format specified")
+		errResponse(w, 400, "More than one format specified", stats)
 		return
 	}
 
@@ -49,7 +65,7 @@ func dotHandler(w http.ResponseWriter, r *http.Request) {
 	case "pdf":
 	case "plain":
 	default:
-		errResponse(w, 400, "Unkonwn format type")
+		errResponse(w, 400, "Unkonwn format type", stats)
 		return
 	}
 
@@ -60,7 +76,10 @@ func dotHandler(w http.ResponseWriter, r *http.Request) {
 
 	err := dot.Run()
 	if err != nil {
-		errResponse(w, 500, err.Error())
+		errResponse(w, 500, err.Error(), stats)
 		return
 	}
+
+	stats["duration-ms"] = time.Since(start) / time.Millisecond
+	kvlog.InfoD("request-successful", stats)
 }
