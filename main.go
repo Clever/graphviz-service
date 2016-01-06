@@ -22,14 +22,14 @@ func main() {
 	http.ListenAndServe(":"+port, nil)
 }
 
-func response(w http.ResponseWriter, status int, body string) {
+func errResponse(w http.ResponseWriter, status int, body string) {
 	w.WriteHeader(status)
 	w.Write([]byte(body))
 }
 
 func dotHandler(w http.ResponseWriter, r *http.Request) {
 	if r.Method != "POST" {
-		response(w, 405, "Unknown method")
+		errResponse(w, 405, "Unknown method")
 		return
 	}
 
@@ -39,7 +39,7 @@ func dotHandler(w http.ResponseWriter, r *http.Request) {
 	if len(vals) == 1 {
 		format = vals[0]
 	} else if len(vals) > 1 {
-		response(w, 400, "More than one format specified")
+		errResponse(w, 400, "More than one format specified")
 		return
 	}
 
@@ -49,7 +49,7 @@ func dotHandler(w http.ResponseWriter, r *http.Request) {
 	case "pdf":
 	case "plain":
 	default:
-		response(w, 400, "Unkonwn format type")
+		errResponse(w, 400, "Unkonwn format type")
 		return
 	}
 
@@ -60,7 +60,7 @@ func dotHandler(w http.ResponseWriter, r *http.Request) {
 
 	err := dot.Run()
 	if err != nil {
-		response(w, 500, err.Error())
+		errResponse(w, 500, err.Error())
 		return
 	}
 }
