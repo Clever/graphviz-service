@@ -16,7 +16,6 @@ build:
 	# Disable CGO and link completely statically so executable runs in contains based on alpine.
 	# i.e. containers that don't use glibc.  Also hardcode OS and architecture to make double sure.
 	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o ./$(EXECUTABLE) -a -installsuffix cgo
-	sudo docker build -t graphviz-service .
 
 test: $(PKGS)
 
@@ -47,4 +46,5 @@ vendor: $(GODEP)
 	find vendor/ -path '*/vendor' -type d | xargs -IX rm -r X # remove any nested vendor directories
 
 run: build
+	sudo docker build -t graphviz-service .
 	sudo docker run -p :8081:80 -e "PORT=80" graphviz-service
