@@ -13,7 +13,9 @@ export GO15VENDOREXPERIMENT=1
 all: test build
 
 build:
-	go build -o ./$(EXECUTABLE)
+	# Disable CGO and link completely statically so executable runs in contains based on alpine.
+	# i.e. containers that don't use glibc.  Also hardcode OS and architecture to make double sure.
+	GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o ./$(EXECUTABLE) -a -installsuffix cgo
 	sudo docker build -t graphviz-service .
 
 test: $(PKGS)
