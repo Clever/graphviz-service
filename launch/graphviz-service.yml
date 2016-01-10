@@ -1,0 +1,7 @@
+run:
+  type: docker
+env: []
+resources:
+  cpu: 0.25
+  mem: 0.25
+dependencies: []
