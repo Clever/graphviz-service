@@ -23,6 +23,11 @@ func requiredEnv(key string) string {
 func main() {
 	port := requiredEnv("PORT")
 
+	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+		kvlog.Info("health-check")
+		w.WriteHeader(200)
+	})
+
 	http.HandleFunc("/dot", dotHandler)
 	http.ListenAndServe(":"+port, nil)
 }
