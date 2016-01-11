@@ -4,4 +4,11 @@ env: []
 resources:
   cpu: 0.25
   mem: 0.25
+expose:
+- name: http
+  port: 80
+  bind: 80
+  health_check:
+    type: http
+    path: /health
 dependencies: []
