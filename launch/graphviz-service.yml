@@ -1,6 +1,7 @@
 run:
   type: docker
-env: []
+env:
+- PORT
 resources:
   cpu: 0.25
   max_mem: 0.25

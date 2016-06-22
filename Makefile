@@ -27,7 +27,7 @@ clean:
 
 run: build
 	docker build -t graphviz-service .
-	docker run -p :8081:80 -e "PORT=80" graphviz-service
+	docker run -p :5001:80 -e "PORT=80" graphviz-service
 
 vendor: golang-godep-vendor-deps
 	$(call golang-godep-vendor,$(PKGS))
