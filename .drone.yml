@@ -6,7 +6,7 @@ notify:
 publish:
   catapult:
     url: $$catapult_url
-    application: "graphviz-service"
+    application: graphviz-service
   docker:
     docker_host: $$docker_server
     email: $$docker_email
@@ -18,6 +18,7 @@ publish:
     username: $$docker_username
     when:
       branch: master
+  report_card: {}
 script:
 - make test
 - make build
