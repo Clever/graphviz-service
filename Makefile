@@ -6,7 +6,7 @@ SHELL := /bin/bash
 PKG := github.com/Clever/aws-cost-notifier/cmd
 PKGS := $(shell go list ./... | grep -v /vendor)
 EXECUTABLE := graphviz-service
-$(eval $(call golang-version-check,1.9))
+$(eval $(call golang-version-check,1.10))
 
 all: test build
 
