@@ -3,8 +3,9 @@ run:
 env:
 - PORT
 resources:
-  cpu: 0.25
-  max_mem: 0.25
+  cpu: 0.01
+  soft_mem_limit: 0.2
+  max_mem: 1.0
 expose:
 - name: http
   port: 80
