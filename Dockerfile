@@ -1,4 +1,4 @@
-FROM gliderlabs/alpine:3.3
+FROM alpine:3.10
 ENTRYPOINT [ "/bin/graphviz-service" ]
-RUN apk-install ca-certificates graphviz font-misc-misc
+RUN apk add ca-certificates && update-ca-certificates graphviz font-misc-misc
 COPY ./graphviz-service /bin/graphviz-service
