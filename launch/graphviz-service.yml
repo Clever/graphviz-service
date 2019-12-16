@@ -9,7 +9,6 @@ resources:
 expose:
 - name: http
   port: 80
-  bind: 80
   health_check:
     type: http
     path: /health
