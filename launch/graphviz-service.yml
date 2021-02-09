@@ -3,9 +3,9 @@ run:
 env:
 - PORT
 resources:
-  cpu: 0.01
+  cpu: 0.25
   soft_mem_limit: 0.2
-  max_mem: 1.0
+  max_mem: 0.5
 expose:
 - name: http
   port: 80
@@ -14,6 +14,12 @@ expose:
     path: /health
 dependencies: []
 team: eng-infra
+pod_config:
+  group: us-west-1
+  prod:
+    migrationState: podOnly
+  dev:
+     migrationState: podOnly
 alarms:
 - type: InternalErrorAlarm
   severity: minor
