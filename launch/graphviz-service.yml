@@ -16,6 +16,10 @@ dependencies: []
 team: eng-infra
 pod_config:
   group: us-west-1
+  prod:
+    migrationState: podOnly
+  dev:
+     migrationState: podOnly
 alarms:
 - type: InternalErrorAlarm
   severity: minor
