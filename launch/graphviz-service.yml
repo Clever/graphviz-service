@@ -4,7 +4,6 @@ env:
 - PORT
 resources:
   cpu: 0.25
-  soft_mem_limit: 0.2
   max_mem: 0.5
 expose:
 - name: http
