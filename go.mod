@@ -1,6 +1,6 @@
 module github.com/Clever/graphviz-service
 
-go 1.13
+go 1.16
 
 require (
 	github.com/getsentry/raven-go v0.0.0-20151124222436-3966f3ab8333 // indirect
