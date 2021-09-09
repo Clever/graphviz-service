@@ -15,6 +15,8 @@ dependencies: []
 team: eng-infra
 pod_config:
   group: us-west-1
+appmesh:
+  type: BACKEND
 alarms:
 - type: InternalErrorAlarm
   severity: minor
