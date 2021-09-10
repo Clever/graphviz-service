@@ -16,7 +16,7 @@ team: eng-infra
 pod_config:
   group: us-west-1
 app_mesh:
-  type: FRONTEND
+  type: FRNTEND
 alarms:
 - type: InternalErrorAlarm
   severity: minor
