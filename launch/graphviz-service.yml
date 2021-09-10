@@ -15,8 +15,8 @@ dependencies: []
 team: eng-infra
 pod_config:
   group: us-west-1
-app_mesh:
-  type: FE
+appmesh:
+  type: FRONTEND
 alarms:
 - type: InternalErrorAlarm
   severity: minor
