@@ -16,7 +16,6 @@ team: eng-infra
 pod_config:
   group: us-west-1
 appmesh:
-  type: BACKND
 alarms:
 - type: InternalErrorAlarm
   severity: minor
