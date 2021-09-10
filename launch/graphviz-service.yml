@@ -15,7 +15,7 @@ dependencies: []
 team: eng-infra
 pod_config:
   group: us-west-1
-appmesh:
+app_mesh:
   type: FE
 alarms:
 - type: InternalErrorAlarm
