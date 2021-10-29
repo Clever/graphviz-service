@@ -1,0 +1,36 @@
+run:
+  type: docker
+env:
+- PORT
+resources:
+  cpu: 0.25
+  max_mem: 0.5
+expose:
+- name: http
+  port: 80
+  health_check:
+    type: http
+    path: /health
+dependencies: []
+team: eng-infra
+pod_config:
+  group: us-west-1
+alarms:
+- type: InternalErrorAlarm
+  severity: minor
+  parameters:
+    threshold: 0.01
+  extraParameters:
+    source: Target
+- type: InternalErrorAlarm
+  severity: major
+  parameters:
+    threshold: 0.05
+  extraParameters:
+    source: Target
+- type: InternalErrorAlarm
+  severity: major
+  parameters:
+    threshold: 0.01
+  extraParameters:
+    source: ELB
