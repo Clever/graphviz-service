@@ -34,3 +34,5 @@ alarms:
     threshold: 0.01
   extraParameters:
     source: ELB
+app_mesh:
+  type: BACKEND
