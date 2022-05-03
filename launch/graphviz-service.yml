@@ -34,3 +34,8 @@ alarms:
     threshold: 0.01
   extraParameters:
     source: ELB
+deploy_config:
+  canaryInProd: false
+  autoDeployEnvs:
+  - clever-dev
+  - production
