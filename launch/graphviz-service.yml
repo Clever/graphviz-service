@@ -34,6 +34,9 @@ alarms:
     threshold: 0.01
   extraParameters:
     source: ELB
+mesh_config:
+  dev:
+    state: mesh_only
 deploy_config:
   canaryInProd: false
   autoDeployEnvs:
