@@ -23,8 +23,14 @@ func requiredEnv(key string) string {
 func main() {
 	port := requiredEnv("PORT")
 
+	startTime := time.Now()
+
 	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		kvlog.Info("health-check")
+		if time.Since(startTime) > 10*time.Minute {
+			w.WriteHeader(503)
+			return
+		}
 		w.WriteHeader(200)
 	})
 
