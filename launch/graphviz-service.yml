@@ -14,7 +14,7 @@ expose:
 dependencies: []
 team: eng-infra
 pod_config:
-  group: us-west-1
+  group: us-east-2
 alarms:
 - type: InternalErrorAlarm
   severity: minor
