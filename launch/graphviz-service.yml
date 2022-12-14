@@ -37,6 +37,7 @@ alarms:
 mesh_config:
   dev:
     state: mesh_only
+  crossRegionRoute: non-sso
 deploy_config:
   canaryInProd: false
   autoDeployEnvs:
