@@ -35,7 +35,6 @@ alarms:
   extraParameters:
     source: ELB
 mesh_config:
-  health_check: true
   dev:
     state: mesh_only
 deploy_config:
