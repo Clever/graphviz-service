@@ -28,7 +28,8 @@ func main() {
 	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		kvlog.Info("health-check")
 		if time.Since(startTime) > 10*time.Minute {
-			panic("oh no")
+			w.WriteHeader(http.StatusServiceUnavailable)
+			return
 		}
 		w.WriteHeader(200)
 	})
