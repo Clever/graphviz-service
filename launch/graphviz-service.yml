@@ -45,4 +45,4 @@ mesh_config:
   crossRegionRoute: non-sso
   setupInternalRoute: true
   prod:
-    state: hybrid
+    state: mesh_only
